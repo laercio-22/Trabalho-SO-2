@@ -6,9 +6,6 @@ public class Pedido {
 	public int instante;
 	public Sentido sentido;
 	
-	public static final int SUBINDO = 1;
-	public static final int DESCENDO = -1;
-	
 	public Pedido(String origem, String destino, int instante) {
 		
 		if("T".equals(origem))

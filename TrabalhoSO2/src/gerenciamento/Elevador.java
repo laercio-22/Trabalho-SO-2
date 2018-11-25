@@ -8,14 +8,12 @@ package gerenciamento;
 public class Elevador extends Thread {
 
 	private IGestor gestor;
-	
-	public static final int SUBINDO = 1;
-	public static final int PARADO = 0;
-	public static final int DESCENDO = -1;
+	private Sentido sentido;
 	
 	public Elevador(String nome, IGestor gestor) {
 		super(nome);
 		this.gestor = gestor;
+		sentido = Sentido.PARADO;
 	}
 
 	@Override
