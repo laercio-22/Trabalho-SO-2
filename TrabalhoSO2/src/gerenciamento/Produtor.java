@@ -5,26 +5,53 @@ import java.util.List;
 
 public class Produtor extends Thread{
 	
-	List<Pedido> pedidos = new ArrayList();
+	private List<Pedido> pedidos = new ArrayList();
+	private IGestor gestor;
+	private int agora;
 	
-	public Produtor() {
+	
+	public Produtor(IGestor gestor) {
 		pedidos = Leitor.ler("dados.csv");
+		pedidos.sort( (x, y) -> x.instante - y.instante ); // ordena lista por ordem de chegada de pedidos
+		this.gestor = gestor;
+		agora = 0;
 		start();
+	}
+	
+	private synchronized List<Pedido> pegar() {
+		List<Pedido> recebidos = new ArrayList();
+		
+		for(Pedido p : pedidos) {
+			
+			if(p.instante == agora) recebidos.add(p);
+		}
+		
+		for(Pedido r : recebidos) {
+			pedidos.remove(r);
+		}
+			
+		return recebidos;
 	}
 	
 	@Override
 	public void run() {
 		
-		
-		try {
-		
-			for(Pedido pedido:pedidos) {
-				System.out.println(pedido.origem);
-				Produtor.sleep(pedido.destino);
-		
+		while(!pedidos.isEmpty()) {
+			
+			List<Pedido> recebidos = pegar();
+			
+			for(Pedido p : recebidos) {
+				gestor.inserir(p);
+				//System.out.println(p + " Solicitado");
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			
+			try {
+				
+				Produtor.sleep(1);
+				agora++;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 			
 	}

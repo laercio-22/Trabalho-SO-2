@@ -8,7 +8,7 @@ class ProdutorTest {
 
 	@Test
 	void test() {
-		Produtor produtor = new Produtor();
+		//Produtor produtor = new Produtor(new GestorFifo());
 	}
 
 }
