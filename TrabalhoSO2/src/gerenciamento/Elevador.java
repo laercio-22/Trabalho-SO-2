@@ -7,11 +7,13 @@ package gerenciamento;
  */
 public class Elevador extends Thread {
 
-	private Gestor gestor;
+	private IGestor gestor;
+	private Sentido sentido;
 	
-	public Elevador(String nome, Gestor gestor) {
+	public Elevador(String nome, IGestor gestor) {
 		super(nome);
 		this.gestor = gestor;
+		sentido = Sentido.PARADO;
 	}
 
 	@Override
