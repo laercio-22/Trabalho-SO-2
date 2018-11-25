@@ -27,7 +27,6 @@ public class Pedido {
 	}
 
 	private Sentido sentido(int origem, int destino) {
-		// TODO Auto-generated method stub
 		return (destino - origem) > 0 ? Sentido.SUBINDO : Sentido.DESCENDO;
 	}
 	
