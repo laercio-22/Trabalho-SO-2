@@ -5,7 +5,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class GestorFifo implements IGestor {
 
-	Queue<Pedido> pedidos;
+	private Queue<Pedido> pedidos;
+	private int pedidosRecebidos;
 	
 	public GestorFifo() {
 		pedidos = new LinkedBlockingQueue<Pedido>();
@@ -28,13 +29,21 @@ public class GestorFifo implements IGestor {
 	@Override
 	public synchronized void inserir(Pedido pedido) {
 		pedidos.add(pedido);
-		
+		pedidosRecebidos++;
 	}
 
 	@Override
 	public boolean temPedido() {
 		// TODO Auto-generated method stub
 		return !pedidos.isEmpty();
+	}
+
+	@Override
+	public String relatorio() {
+		String msg = "GestorFifo\n";
+		msg += "Regra de distribuição: FIFO\n";
+		msg += "Pedidos Recebidos: " + pedidosRecebidos;
+		return msg;
 	}
 
 }

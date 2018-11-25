@@ -42,12 +42,12 @@ public class Produtor extends Thread{
 			
 			for(Pedido p : recebidos) {
 				gestor.inserir(p);
-				System.out.println(p + " Solicitado");
+				//System.out.println(p + " Solicitado");
 			}
 			
 			try {
 				
-				Produtor.sleep(20);
+				Produtor.sleep(1);
 				agora++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -9,4 +9,6 @@ public interface IGestor {
 	public void inserir(Pedido pedido);
 	
 	public boolean temPedido();
+	
+	public String relatorio();
 }

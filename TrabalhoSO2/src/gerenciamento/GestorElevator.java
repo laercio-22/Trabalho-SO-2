@@ -5,10 +5,12 @@ import java.util.List;
 
 public class GestorElevator implements IGestor {
 
-	List<Pedido> pedidos;
+	private List<Pedido> pedidos;
+	private int pedidosRecebidos;
 	
 	public GestorElevator() {
 		pedidos = new ArrayList<Pedido>();
+		pedidosRecebidos = 0;
 	}
 	
 	/*Remove o primeiro pedido na lista*/
@@ -30,7 +32,7 @@ public class GestorElevator implements IGestor {
 								.filter( p -> p.sentido == sentido && p.origem >= andar)
 								.sorted( (x, y) -> y.origem - x.origem)
 								.findFirst()
-								.orElse(pegar());
+								.orElse(null);
 			pedidos.remove(pedido);
 			
 			return pedido;
@@ -42,7 +44,7 @@ public class GestorElevator implements IGestor {
 								.filter( p -> p.sentido == sentido && p.origem <= andar)
 								.sorted( (x, y) -> x.origem - y.origem)
 								.findFirst()
-								.orElse(pegar());
+								.orElse(null);
 			pedidos.remove(pedido);
 			
 			return pedido;
@@ -56,11 +58,20 @@ public class GestorElevator implements IGestor {
 	@Override
 	public synchronized void  inserir(Pedido pedido) {
 		pedidos.add(pedido);
+		pedidosRecebidos++;
 	}
 
 	@Override
 	public boolean temPedido() {
 		return !pedidos.isEmpty();
+	}
+
+	@Override
+	public String relatorio() {
+		String msg = "GestorElevator\n";
+		msg += "Regra de distribuição: Elevador\n";
+		msg += "Pedidos Recebidos: " + pedidosRecebidos;
+		return msg;
 	}
 
 }
