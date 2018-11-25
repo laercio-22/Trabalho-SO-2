@@ -4,10 +4,10 @@ public class Pedido {
 	public int origem;
 	public int destino;
 	public int instante;
-	public int sentido;
+	public Sentido sentido;
 	
 	public static final int SUBINDO = 1;
-	public static final int DESCENDO = 0;
+	public static final int DESCENDO = -1;
 	
 	public Pedido(String origem, String destino, int instante) {
 		
@@ -29,9 +29,9 @@ public class Pedido {
 		this.sentido = sentido(this.origem, this.destino);
 	}
 
-	private int sentido(int origem, int destino) {
+	private Sentido sentido(int origem, int destino) {
 		// TODO Auto-generated method stub
-		return (destino - origem) > 0 ? Pedido.SUBINDO : Pedido.DESCENDO;
+		return (destino - origem) > 0 ? Sentido.SUBINDO : Sentido.DESCENDO;
 	}
 	
 	private String andar(int andar) {
@@ -44,10 +44,10 @@ public class Pedido {
 		return a;
 	}
 	
-	private String sentido(int sentido) {
+	private String sentido(Sentido sentido) {
 		String s = "";
 		
-		if(sentido == Pedido.SUBINDO) s = "Subindo";
+		if(sentido == Sentido.SUBINDO) s = "Subindo";
 		else s = "Descendo";
 		
 		return s;
