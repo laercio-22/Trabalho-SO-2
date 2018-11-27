@@ -38,20 +38,16 @@ public class Produtor extends Thread{
 		
 		while(!pedidos.isEmpty()) {
 			
-			List<Pedido> recebidos = pegar();
-			
-			for(Pedido p : recebidos) {
-				gestor.inserir(p);
-				//System.out.println(p + " Solicitado");
-			}
-			
+			Pedido p = pedidos.remove(0);
 			try {
-				
-				Produtor.sleep(1);
-				agora++;
+				Produtor.sleep(p.instante);
+				agora += p.instante;
+				gestor.inserir(p);
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
 			
 	}
