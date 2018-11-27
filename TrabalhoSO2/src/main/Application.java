@@ -21,9 +21,9 @@ public class Application {
 		
 		Produtor produtor1 = new Produtor(gestorElevator);
 		
-		Elevador e1 = new Elevador("1", gestorElevator, 2);
-		Elevador e2 = new Elevador("2", gestorElevator, 2);
-		Elevador e3 = new Elevador("3", gestorElevator, 2);
+		Elevador e1 = new Elevador("1", gestorElevator, 30);
+		Elevador e2 = new Elevador("2", gestorElevator, 30);
+		Elevador e3 = new Elevador("3", gestorElevator, 30);
 		
 		while(produtor1.isAlive() || gestorElevator.temPedido()) {
 			
@@ -38,9 +38,9 @@ public class Application {
 		
 		Produtor produtor2 = new Produtor(gestorFifo);		
 		
-		Elevador e4 = new Elevador("4", gestorFifo, 2);
-		Elevador e5 = new Elevador("5", gestorFifo, 2);
-		Elevador e6 = new Elevador("6", gestorFifo, 2);
+		Elevador e4 = new Elevador("4", gestorFifo, 30);
+		Elevador e5 = new Elevador("5", gestorFifo, 30);
+		Elevador e6 = new Elevador("6", gestorFifo, 30);
 		
 		while(produtor2.isAlive() || gestorFifo.temPedido()) {
 			
