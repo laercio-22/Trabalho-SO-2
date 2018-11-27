@@ -10,9 +10,9 @@ public class Produtor extends Thread{
 	private int agora;
 	
 	
-	public Produtor(IGestor gestor) {
-		pedidos = Leitor.ler("dados.csv");
-		pedidos.sort( (x, y) -> x.instante - y.instante ); // ordena lista por ordem de chegada de pedidos
+	public Produtor(IGestor gestor, String nomeArquivo) {
+		pedidos = Leitor.ler(nomeArquivo);
+		//pedidos.sort( (x, y) -> x.instante - y.instante ); // ordena lista por ordem de chegada de pedidos
 		this.gestor = gestor;
 		agora = 0;
 		start();

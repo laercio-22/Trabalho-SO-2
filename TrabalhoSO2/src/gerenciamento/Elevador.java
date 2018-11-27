@@ -92,7 +92,7 @@ public class Elevador extends Thread {
 	private void mover() {
 				
 		
-		atenderAndar();
+		atenderAndar2();
 		
 		embarcar.sort( (x, y) -> (x.origem - andar) - (y.origem - andar) );
 		desembarcar.sort((x, y) -> (x.destino - andar) - (y.destino - andar));
@@ -157,6 +157,29 @@ public class Elevador extends Thread {
 			System.out.println(pegar + " embarcou no elevador " + this.getName() + " - Tempo decorrido: " + tempoDecorrido);
 			
 		}
+		
+	}
+	
+	private void atenderAndar2() {		
+		
+		embarcar.removeIf( p -> {
+			boolean remover = false;
+			if (p.origem == andar) {
+				remover = true;
+				desembarcar.add(p);
+				System.out.println(p + " embarcou no elevador " + this.getName() + " - Tempo decorrido: " + tempoDecorrido);
+			}
+			return remover;
+		});
+		
+		desembarcar.removeIf(p -> {
+			boolean remover = false;
+			if (p.destino == andar) {
+				remover = true;
+				System.out.println(p + " desceu do elevador " + this.getName()  + " - Tempo decorrido: " + tempoDecorrido);
+			}
+			return remover;
+		});		
 		
 	}
 
