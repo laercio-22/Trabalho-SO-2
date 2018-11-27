@@ -13,19 +13,18 @@ import gerenciamento.Sentido;
 
 public class Application {
 
-	public static void main(String[] args) throws InterruptedException {
-		// TODO Auto-generated method stub
-		//List<Pedido> pedidos = Leitor.ler("dados.csv");
-		IGestor gestorElevator = new GestorElevator();
-		IGestor gestorFifo = new GestorFifo();
+	private static String  relatorio = "";
+	
+	
+	
+	public static void executar(IGestor gestor, String nomeArquivo, String nomeRelatorio) throws InterruptedException {
 		
-		Produtor produtor1 = new Produtor(gestorElevator);
+		Produtor produtor = new Produtor(gestor, nomeArquivo);
+		Elevador e1 = new Elevador("1", gestor, 30);
+		Elevador e2 = new Elevador("2", gestor, 30);
+		Elevador e3 = new Elevador("3", gestor, 30);
 		
-		Elevador e1 = new Elevador("1", gestorElevator, 30);
-		Elevador e2 = new Elevador("2", gestorElevator, 30);
-		Elevador e3 = new Elevador("3", gestorElevator, 30);
-		
-		while(produtor1.isAlive() || gestorElevator.temPedido()) {
+		while(produtor.isAlive() || gestor.temPedido()) {
 			
 		}
 		
@@ -36,60 +35,35 @@ public class Application {
 		e2.join();
 		e3.join();
 		
-		Produtor produtor2 = new Produtor(gestorFifo);		
+		relatorio += nomeRelatorio + "\n";
 		
-		Elevador e4 = new Elevador("4", gestorFifo, 30);
-		Elevador e5 = new Elevador("5", gestorFifo, 30);
-		Elevador e6 = new Elevador("6", gestorFifo, 30);
+		relatorio += "--------------------------\n";
+		relatorio += e1.relatorio() + "\n";
+		relatorio += "--------------------------\n";
 		
-		while(produtor2.isAlive() || gestorFifo.temPedido()) {
-			
-		}		
+		relatorio += "--------------------------\n";
+		relatorio += e2.relatorio()+"\n";
+		relatorio += "--------------------------\n";
 		
-		e4.parar();
-		e5.parar();
-		e6.parar();		
+		relatorio += "--------------------------\n";
+		relatorio += e3.relatorio()+"\n";
+		relatorio += "--------------------------\n";
 		
-		e4.join();
-		e5.join();
-		e6.join();
+		relatorio += "--------------------------\n";
+		relatorio += "Tempo Total de trabalho: " + (e1.tempoDecorrido + e2.tempoDecorrido + e3.tempoDecorrido) + "\n";
+		relatorio +="Total de movimentacões: " + (e1.movimentacoes + e2.movimentacoes + e3.movimentacoes)+"\n";
+	}
+	
+	public static void main(String[] args) throws InterruptedException {		
 		
-		System.out.println("--------------------------");
-		System.out.println(e1.relatorio());
-		System.out.println("--------------------------");
 		
-		System.out.println();
-		System.out.println("--------------------------");
-		System.out.println(e2.relatorio());
-		System.out.println("--------------------------");
+		executar(new GestorElevator(), "dados.csv", "Primeira Execução");
 		
-		System.out.println();
-		System.out.println("--------------------------");
-		System.out.println(e3.relatorio());
-		System.out.println("--------------------------");
+		executar(new GestorFifo(), "dados.csv", "Primeira Execução");
 		
-		System.out.println();
-		System.out.println("--------------------------");
-		System.out.println(e4.relatorio());
-		System.out.println("--------------------------");
 		
-		System.out.println();
-		System.out.println("--------------------------");
-		System.out.println(e5.relatorio());
-		System.out.println("--------------------------");
+		System.out.println(relatorio);
 		
-		System.out.println();
-		System.out.println("--------------------------");
-		System.out.println(e6.relatorio());
-		System.out.println("--------------------------");
-		
-		System.out.println("Regra Elevador");
-		System.out.println("Tempo total de trabalho: " + (e1.tempoDecorrido + e2.tempoDecorrido + e3.tempoDecorrido));
-		System.out.println("Total de movimentacões: " + (e1.movimentacoes + e2.movimentacoes + e3.movimentacoes));
-		
-		System.out.println("Regra Fifo");
-		System.out.println("Tempo total de trabalho: " + (e4.tempoDecorrido + e5.tempoDecorrido + e6.tempoDecorrido));
-		System.out.println("Total de movimentacões: " + (e4.movimentacoes + e5.movimentacoes + e6.movimentacoes));
 		
 	}
 
